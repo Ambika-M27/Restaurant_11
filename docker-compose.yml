@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  www:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8004:80"
+    volumes:
+      - ./www:/var/www/html
+    depends_on:
+      - db-1
+    networks:
+      - hotelbooking_network
+
+  db-1:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ambika
+      MYSQL_DATABASE: foodorder
+      MYSQL_USER: ambika
+      MYSQL_PASSWORD: ambika
+    ports:
+      - "3310:3310"
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    networks:
+      - hotelbooking_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "89:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: ambika
+      MYSQL_USER: ambika
+      MYSQL_PASSWORD: ambika
+      PMA_HOST: db-1  # Add this line to specify the MySQL hostname
+    networks:
+      - hotelbooking_network
+    depends_on:
+      - db-1
+
+networks:
+  hotelbooking_network:
+
+volumes:
+  db_data:

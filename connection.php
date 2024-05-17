@@ -1,16 +1,19 @@
 <?php
-// PostgreSQL database connection parameters
-$host = "localhost";
-$port = "5432";
-$dbname = "restaurant";
-$user = "postgres";
-$password = "0328";
 
-// Connect to PostgreSQL
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
+// Uncommented lines should not contain PHP opening tags
 
-if (!$conn) {
-    echo "Error: Unable to connect to the database.";
-    exit;
-}
-?>
+// Old code:
+// //$conn= new mysqli('localhost','root','','bloodbank_db')or die("Could not connect to mysql".mysqli_error($con));
+// //
+// //$servername = "db"; // MySQL hostname (service name in Docker Compose)
+// //$username = "gourish"; // MySQL username
+// //$password = "Gourish@12"; // MySQL password
+// //$database = "bloodbank_db"; // MySQL database name
+
+// Create connection
+$conn = mysqli_connect(
+    "db",
+    "ambika",
+    "ambika",
+    "foodorder"
+);
